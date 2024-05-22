@@ -8,4 +8,5 @@ COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 RUN chmod +x maria.sh
 
-ENTRYPOINT [ "/maria.sh" ]
+# ENTRYPOINT [ "sleep", "infinity"]
+ENTRYPOINT [ "./maria.sh" ]

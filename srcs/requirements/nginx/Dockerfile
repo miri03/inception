@@ -17,7 +17,3 @@ CMD [ "sh" ,"ssl.sh" ]
 # mariadb -h mariadb-container -p123
 
 #sudo aa-remove-unknown
-
-# openssl genpkey -algorithm RSA -out private.key
-# openssl req -new -key private.key -out csr.pem
-# openssl x509 -req -days 365 -in csr.pem -signkey private.key -out certificate.crt

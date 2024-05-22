@@ -2,21 +2,21 @@
 
 service mariadb start
 
-sleep 2
+sleep 4
 
-mariadb -u root -p"123" -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '123';"
+mariadb -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD -e "ALTER USER '$MYSQL_ROOT'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
+mariadb -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS mydatabase;"
 
-mariadb -u root -p"123" -e "CREATE DATABASE IF NOT EXISTS mydatabase;"
+mariadb -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_USER_PASSWORD';"
 
-mariadb -u root -p"123" -e "CREATE USER IF NOT EXISTS 'myuser'@'localhost' IDENTIFIED BY 'mypassword';"
+mariadb -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON mydatabase.* TO '$MYSQL_USER'@'localhost';"
 
-mariadb -u root -p"123" -e "GRANT ALL PRIVILEGES ON mydatabase.* TO 'myuser'@'localhost';"
+mariadb -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_ROOT'@'nginx-container.srcs_my_network' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;"
+mariadb -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON mydatabase.* TO '$MYSQL_USER'@'nginx-container.srcs_my_network' IDENTIFIED BY '$MYSQL_USER_PASSWORD' WITH GRANT OPTION;"
 
-mariadb -u root -p"123" -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'nginx-container.my_network' IDENTIFIED BY '123' WITH GRANT OPTION;"
+mariadb -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
 
-mariadb -u root -p"123" -e "FLUSH PRIVILEGES;"
-
-mysqladmin -u root -p"123"  shutdown
+mysqladmin -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD  shutdown
 
 mysqld
 
