@@ -1,0 +1,39 @@
+# version: '3'
+
+services:
+  mariadb:
+    container_name: mariadb-container
+    build: ./requirements/mariadb/
+    restart: always
+    volumes:
+      - mariadb:/var/lib/mysql/
+    env_file:
+      - .env
+    networks:
+      - my_network
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: mypassword
+    init : true
+
+  nginx:
+    container_name: nginx-container
+    build: ./requirements/nginx/
+    restart: always
+    volumes:
+      - mariadb:/var/lib/mysql/
+    env_file:
+      - .env
+    networks:
+      - my_network
+    ports:
+      - "8000:80"
+    init : true
+    
+networks:
+  my_network:
+    driver: bridge
+volumes :
+  mariadb:

@@ -12,6 +12,6 @@ EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
 
-# mariadb -h mariadb-container -u root -p123
+# mariadb -h mariadb-container -p123
 
 #sudo aa-remove-unknown

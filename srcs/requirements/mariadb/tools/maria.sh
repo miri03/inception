@@ -18,6 +18,6 @@ mariadb -u root -p"123" -e "FLUSH PRIVILEGES;"
 
 mysqladmin -u root -p"123"  shutdown
 
-mysqld_safe --port=3306 --bind-address=0.0.0.0 --datadir='/var/lib/mysql'
+mysqld
 
 # wp-cli wordpress
