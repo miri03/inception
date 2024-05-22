@@ -29,7 +29,7 @@ services:
     networks:
       - my_network
     ports:
-      - "8000:80"
+      - "8000:443"
     init : true
     
 networks:
