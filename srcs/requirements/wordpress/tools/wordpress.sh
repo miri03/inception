@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-# sleep 14
+sleep 14
 
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
@@ -22,9 +22,9 @@ wp core download --allow-root
 
 wp core config --dbhost=mariadb:3306 --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" --dbpass="$MYSQL_USER_PASSWORD" --allow-root
 
-wp core install --url=$WORDPRESS_DOMAIN_NAME --title="WP-CLI" --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=admin@email.com
+wp core install --allow-root --url=$WORDPRESS_DOMAIN_NAME --title="WP-CLI" --admin_user=$WORDPRESS_ADMIN --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_EMAIL
 
-wp user create "$WP_U_NAME" "$WP_U_EMAIL" --user_pass="$WP_U_PASS" --role="$WP_U_ROLE" --allow-root
+wp user create "$WORDPRESS_U_NAME" "$WORDPRESS_U_EMAIL" --user_pass="$WORDPRESS_U_PASS" --role="$WORDPRESS_U_ROLE" --allow-root
 
 
 # change listen port from unix socket to 9000
@@ -35,5 +35,5 @@ sed -i 's#chdir = /var/www#chdir = /var/www/html/wordpress#g' /etc/php/7.4/fpm/p
 # create a directory for php-fpm
 mkdir -p /run/php
 # start php-fpm service in the foreground to keep the container running
-/usr/sbin/php-fpm7.4 -F
+php-fpm7.4 -F
 
