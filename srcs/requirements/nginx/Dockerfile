@@ -1,5 +1,8 @@
 FROM debian:bullseye
 
+
+RUN apt -y update && apt -y upgrade
+
 RUN apt-get update && apt-get upgrade -y && apt-get install -y nginx openssl mariadb-client
 
 COPY ./conf/default.conf /etc/nginx/sites-enabled

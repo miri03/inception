@@ -16,22 +16,26 @@ services:
     container_name: nginx-container
     build: ./requirements/nginx/
     restart: always
-    # volumes:
-      # - wordpress:
+    volumes:
+      - wordpress:/var/www/html/
+    depends_on:
+      - wordpress
     env_file:
       - .env
     networks:
       - my_network
     ports:
-      - "8000:443"
+      - "443:443"
     init : true
-    
+
   wordpress:
     container_name: wordpress-container
     build: ./requirements/wordpress/
     restart: always
-    # volumes:
-      # - wordpress:
+    volumes:
+      - wordpress:/var/www/html/
+    depends_on:
+      - mariadb
     env_file:
       - .env
     networks:
@@ -50,3 +54,10 @@ volumes:
       o: bind
       type: none
       device: /home/meharit/data/mariadb
+  
+  wordpress:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/meharit/data/wordpress

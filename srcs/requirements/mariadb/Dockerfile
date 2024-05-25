@@ -1,5 +1,7 @@
 FROM debian:bullseye
 
+RUN apt -y update && apt -y upgrade
+
 RUN apt-get update && apt-get upgrade -y && apt-get install -y mariadb-server
 
 COPY tools/maria.sh /maria.sh
