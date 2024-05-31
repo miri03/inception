@@ -26,7 +26,6 @@ wp core install --allow-root --url=$WORDPRESS_DOMAIN_NAME --title="WP-CLI" --adm
 
 wp user create "$WORDPRESS_U_NAME" "$WORDPRESS_U_EMAIL" --user_pass="$WORDPRESS_U_PASS" --role="$WORDPRESS_U_ROLE" --allow-root
 
-
 # change listen port from unix socket to 9000
 sed -i '36 s@/run/php/php7.4-fpm.sock@9000@' /etc/php/7.4/fpm/pool.d/www.conf
 

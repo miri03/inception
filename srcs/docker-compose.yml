@@ -1,6 +1,9 @@
 
+#add images
+
 services:
   mariadb:
+    # image: mariadb
     container_name: mariadb-container
     build: ./requirements/mariadb/
     restart: always
@@ -10,9 +13,9 @@ services:
       - .env
     networks:
       - my_network
-    init : true
 
   nginx:
+    # image: nginx
     container_name: nginx-container
     build: ./requirements/nginx/
     restart: always
@@ -26,9 +29,9 @@ services:
       - my_network
     ports:
       - "443:443"
-    init : true
 
   wordpress:
+    # image: wordpress
     container_name: wordpress-container
     build: ./requirements/wordpress/
     restart: always
@@ -40,7 +43,6 @@ services:
       - .env
     networks:
       - my_network
-    init : true
 
 
 networks:
