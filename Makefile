@@ -1,5 +1,5 @@
 all:
-	docker compose --project-directory "srcs/" up -d
+	docker compose --project-directory "srcs/" up -d --build
 
 clean :
 	
