@@ -1,10 +1,9 @@
 #!/bin/sh
 
-openssl genpkey -algorithm RSA -out /etc/ssl/private/private.key
+sed -i "s#ssl_certificate;#ssl_certificate ${SSL_CERT};#g" /etc/nginx/sites-enabled/default.conf
 
-openssl req -new -key /etc/ssl/private/private.key -out /etc/ssl/certs/csr.pem \
-  -subj "/C="US"/ST="Alabama"/L="Montgomery"/O="cm"/OU="cmm"/CN="miri"/emailAddress="cmm@email.com""
+sed -i "s#ssl_certificate_key#ssl_certificate_key ${SSL_CERT_K};#g" /etc/nginx/sites-enabled/default.conf
 
-openssl x509 -req -days 365 -in /etc/ssl/certs/csr.pem -signkey /etc/ssl/private/private.key -out /etc/ssl/certs/certificate.crt
+openssl req -x509 -nodes -out $SSL_CERT -keyout $SSL_CERT_K -subj "/C="US"/ST="Alabama"/L="Montgomery"/O="cm"/OU="cmm"/CN="miri"/emailAddress="cmm@email.com""
 
 nginx -g "daemon off;"
