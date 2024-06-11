@@ -3,6 +3,7 @@
 service mariadb start
 
 sleep 5
+
 mariadb -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS mydatabase;"
 
 mariadb -u $MYSQL_ROOT -p$MYSQL_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_USER_PASSWORD';"
